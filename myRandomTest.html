@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<img src="" alt="" id="no1" width="100px" height="100px">
+	<img src="" alt="" id="no2" width="100px" height="100px">
+	<img src="" alt="" id="no3" width="100px" height="100px">
+	<img src="" alt="" id="no4" width="100px" height="100px">
+	<img src="" alt="" id="no5" width="100px" height="100px">
+	<img src="" alt="" id="no6" width="100px" height="100px">
+	<br/>
+	<button id="btn" onclick="getNum();">클릭하세요</button>
+	<div id="nResult"></div>
+	<script>
+		var dSelector = document.querySelector("#nResult");
+		
+		var getRnd = function(maxVal) {
+			return Math.floor((Math.random() * maxVal)) + 1;
+		}
+
+		var getNum = function() {
+			rNo1 = getRnd(45);
+			
+			rNo2 = getRnd(45);
+			while(rNo1 == rNo2) {
+				rNo2 = getRnd(45);
+			}
+			
+			rNo3 = getRnd(45);
+			while(rNo1 == rNo3 || rNo2 == rNo3) {
+				getRnd(45);
+			}
+			
+			rNo4 = getRnd(45);
+			while(rNo1 == rNo4 || rNo2 == rNo4 || rNo3 == rNo4) {
+				rNo4 = getRnd(45);
+			}
+			
+			rNo5 = getRnd(45);
+			while(rNo1 == rNo5 || rNo2 == rNo5 || rNo3 == rNo5 || rNo4 == rNo5) {
+				rNo5 = getRnd(45);
+			}
+			
+			rNo6 = getRnd(45);
+			while(rNo1 == rNo6 || rNo2 == rNo6 || rNo3 == rNo6 || rNo4 == rNo6 || rNo5 == rNo6) {
+				rNo6 = getRnd(45);
+			}
+
+			var rNo = [ rNo1, rNo2, rNo3, rNo4, rNo5, rNo6 ];
+			rNo.sort(function(a,b) {
+				if(a == b) return 0;
+				if(a < b) return -1;
+				return 1;
+			});
+			dSelector.innerText = rNo;
+			showImg("#no1", rNo[0])
+			showImg("#no2", rNo[1])
+			showImg("#no3", rNo[2])
+			showImg("#no4", rNo[3])
+			showImg("#no5", rNo[4])
+			showImg("#no6", rNo[5])
+		}
+
+		var showImg = function(pSelector, pVal) {
+			var iSelector = document.querySelector(pSelector);
+			iSelector.src = "images/lotto-ball-" + pVal + ".png";
+		}
+	</script>
+</body>
+</html>

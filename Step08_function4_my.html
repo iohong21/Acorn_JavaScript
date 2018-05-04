@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step08_function4.html</title>
+	<style>
+		body { background-color: black; }
+		h3 { color: white; }
+		div { color: white; }
+	</style>
+</head>
+<body>
+	<h3>function 테스트</h3>
+	<script>
+		var getMember = function() {
+			var mem = {
+				num: 1,
+				name: "김구라",
+				addr: "노량진"
+			};
+			return mem;
+		};
+
+		var getNums = function() {
+			var nums = [10, 20, 30, 40, 50];
+			return nums;
+		};
+
+		var runClick = function(pColor) {
+			var htColor = [ { bColor: "white", fColor: "black" },
+							{ bColor: "blue", fColor: "white" },
+							{ bColor: "black", fColor: "white" } ];
+			var bC = htColor[pColor].bColor;
+			var fC = htColor[pColor].fColor;
+
+			document.querySelector("body").style.background = bC;
+			document.querySelector("h3").style.color = fC;
+			document.querySelector("#divResult").style.color = fC;
+			document.querySelector("#divNums").style.color = fC;
+			document.querySelector("#cVal").style.color = fC;
+			document.querySelector("#cVal").innerText = "BackgroundColor: " + bC;
+		};
+	</script>
+	<div id="divResult">함수 테스트 결과는 object를 return하고, 배열을 return한다.</div>
+	<div id="divNums"></div>
+	<script>
+		document.querySelector("#divNums").innerText = getNums().join();
+	</script>
+	<button onclick="runClick(Math.floor(Math.random()*3));">Click me</button>
+	<p id="cVal"><p>
+</body>
+</html>

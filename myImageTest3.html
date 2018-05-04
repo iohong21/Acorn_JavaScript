@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.baseImage {
+			width: 150px;
+			height: 150px;
+		}
+	</style>
+</head>
+<body>
+	<img onclick="clickNum(1)" id="no1" class="baseImage" src="images/lotto-ball-1.png" alt="">
+	<img onclick="clickNum(2)" id="no2" class="baseImage" src="images/lotto-ball-2.png" alt="">
+	<script>
+		var n1size = 150;
+		var n2size = 150;
+
+		var clickNum = function(pVal) {
+			if(pVal == 1) {
+				n1size += 10;
+				n2size -= 10;
+			} else {
+				n2size += 10;
+				n1size -= 10;
+			}
+			changeSize(getSelector(1), n1size);
+			changeSize(getSelector(2), n2size);
+		};
+
+		var getSelector = function(pID) {
+			return document.querySelector("#no" + pID);
+		};
+
+		var changeSize = function(pSelector, pSize) {
+			pSelector.style.width = pSize + "px";
+			pSelector.style.height = pSize + "px";
+		};
+	</script>
+</body>
+</html>

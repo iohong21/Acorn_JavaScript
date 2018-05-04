@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step18_JSON2.html</title>
+</head>
+<body>
+	<ul id="friendList">
+		
+	</ul>
+	<script>
+		var jsonFriend = '["김구라", "해골", "원숭이"]';
+		/*
+			jsonFriend 에 있는 내용을 이용해서 위의 ul 요소에 친구 목록을 출력해보세요
+		*/
+		var arrFriend = JSON.parse(jsonFriend);
+		var oUL = document.querySelector("#friendList");
+
+		arrFriend.forEach(function(item){
+			var oLI = document.createElement("li");
+			oLI.innerText = item;
+			oUL.append(oLI);
+		});
+	</script>
+</body>
+</html>

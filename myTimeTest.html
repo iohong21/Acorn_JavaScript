@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MyTest</title>
+</head>
+<body>
+	<div id="currTime">[ 현재 시간 ]</div>
+	<br/>
+	<img id="hh1" src="images/0.png"></img>
+	<img id="hh2" src="images/1.png"></img>
+	<img id="s1" src="images/colon_horizontal_center.png"></img>
+	<img id="mm1" src="images/2.png"></img>
+	<img id="mm2" src="images/3.png"></img>
+	<img id="s2" src="images/colon_horizontal_center.png"></img>
+	<img id="ss1" src="images/4.png"></img>
+	<img id="ss2" src="images/5.png"></img>
+	<br/>
+	<img src="images/blood0.png" alt="" id="blood">
+
+	<script>
+		var tmSelector = document.querySelector("#tm");
+		var blSelector = document.querySelector("#blood");
+		var time;
+		var esID;
+		var es = 0;
+		var bCnt = 0;
+		setInterval(function() {
+			time = new Date();
+			var h = time.getHours();
+			var m = time.getMinutes();
+			var s = time.getSeconds();
+			var isRun = false;
+
+			var mok = Math.floor(h / 10);
+			var na = h % 10;
+
+			tmShow("#hh1", mok);
+			tmShow("#hh2", na);		
+			
+			mok = Math.floor(m / 10);
+			na = m % 10;	
+			tmShow("#mm1", mok);
+			tmShow("#mm2", na);		
+
+			mok = Math.floor(s / 10);
+			na = s % 10;	
+			tmShow("#ss1", mok);
+			tmShow("#ss2", na);		
+
+			if(es < 3) {
+				es = es + 1;
+			} else {
+				if(bCnt > 5) {
+					if(!isRun) {
+						clearInterval(esID);
+					}
+				} else {
+					esID = setInterval(function() {
+						blSelector.src = "images/blood" + bCnt + ".png";
+						bCnt = bCnt + 1;
+					}, 200);
+				}
+			} 
+
+		}, 1000);
+
+		var tmShow = function(tmSelector, tmVal) {
+			var tmSel = document.querySelector(tmSelector);
+			var tmS;
+			if(typeof tmVal == "number") {
+				tmS = "images/" + tmVal + ".png";
+				tmSel.src = tmS;
+			}
+		}
+	</script>
+</body>
+</html>

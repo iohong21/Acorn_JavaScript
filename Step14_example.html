@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step14_example.html</title>
+	<style> 
+		/*
+			div 요소에 마우스가 hover 되었을때 적용할 css 
+		*/
+		div {
+			color: blue;
+		}
+		div:hover {
+			background-color: yellow;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<h3>반복문 돌면서 이벤트 리스너 등록하기</h3>
+	<div>div1</div>
+	<div>div2</div>
+	<div>div3</div>
+	<div>div4</div>
+	<div>div5</div>
+	<div>div6</div>
+	<div>div7</div>
+	<div>div8</div>
+	<div>div9</div>
+	<div>div10</div>
+
+	<script>
+		var dSelector = document.querySelectorAll("div");
+
+		var isFirst = true;
+		var prevSelector;
+		var prevText;
+		var prevColor;
+
+		/*
+		for(var i=0; i<dSelector.length; i++) {
+			dSelector[i].addEventListener("click", function(){
+				this.innerText = "clicked!";
+			});
+		}
+		*/
+
+		/*
+		dSelector.forEach(function(item) {
+			item.addEventListener("click", function(){
+				this.innerText = "clicked!";
+			});
+		});
+		*/
+
+		var currentSave = function(argSelector) {
+			prevSelector = argSelector;
+			prevText = argSelector.innerText;
+			prevColor = argSelector.style.color;
+		};
+
+		var restoreElement = function() {
+			prevSelector.innerText = prevText;
+			prevSelector.style.color = prevColor;
+		};
+
+		dSelector.forEach(function(item, index) {
+			item.addEventListener("click", function(){
+				if(isFirst) {
+					currentSave(this);
+					isFirst = false;
+				} else {
+					restoreElement();
+					currentSave(this);
+				};
+				this.innerHTML = "clicked!" + " &nbsp; &nbsp; &nbsp; &nbsp; index: " + index;
+				this.style.color = "red";
+			});
+		});
+	</script>
+</body>
+</html>

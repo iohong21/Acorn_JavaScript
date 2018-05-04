@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step15_example3.html</title>
+</head>
+<body>
+	<input type="text" id="inputMsg"/>
+	<button id="addBtn">추가</button>
+	<ul id="msgList">
+	</ul>
+	<script>
+		var getSelector = function(argSelector) {
+			return document.querySelector(argSelector);
+		};
+		var makeElement = function(argElement) {
+			return document.createElement(argElement);
+		};
+
+		var doAppend = function() {
+			var oInput = getSelector("#inputMsg");
+			var oLI = makeElement("li");
+			var oButton = makeElement("button");
+
+			oLI.innerText = oInput.value;
+			oButton.innerText = "x";
+
+			oButton.addEventListener("click", function(){
+				if(confirm("정말로 삭제 하시겠습니까?")) {
+					this.parentElement.remove();
+				}
+			});
+
+			oLI.append(oButton);
+			getSelector("#msgList").append(oLI);
+
+			oInput.value = "";
+			oInput.focus();
+		};
+
+		getSelector("#addBtn").addEventListener("click", function(){
+			doAppend();
+		});
+
+		getSelector("#inputMsg").addEventListener("keyup", function(event){
+			if(event.keyCode == 13) {
+				doAppend();
+			}
+		});
+
+		getSelector("#inputMsg").focus();
+	</script>
+</body>
+</html>

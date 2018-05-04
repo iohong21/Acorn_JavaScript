@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step14_example3.html</title>
+</head>
+<body>
+	<button id="printBtn">출력</button>
+	<button id="printBoldBtn">진하게 출력</button>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<script>
+		var names = ["김구라", "해골", "원숭이", "주뎅이", "덩어리"];
+
+		/*
+			출력하기 버튼을 눌렀을때 배열에 저장된 문자열을 순서대로 
+			div 의 innerText 로 출력해 보세요
+		*/
+		
+		var eventName = {
+			click: "click",
+			mouseOver: "mouseover",
+			mouseOut: "mouseout"
+		};
+
+		var dSelector = document.querySelectorAll("div");
+
+		var isEven = function(argVal) {
+			return argVal % 2 == 0;
+		};
+
+		var isOdd = function(argVal) {
+			return argVal % 2 == 1;
+		};
+
+		var setStrong = function(argVal) {
+			return `<strong>${argVal}</strong>`;
+		};
+
+		var changeText = function(argElement, argValue) {
+			argElement.innerText = argValue;
+		};
+
+		var changeTextHTML = function(argElement, argValue) {
+			argElement.innerHTML = argValue;
+		};
+
+		var setForeColor = function(argElement, argColor) {
+			argElement.style.color = argColor;
+		};
+
+		var getItemColor = function() {
+			return ["red", "orange", "#9c27b0", "green", "blue"];
+		};
+
+		var doMouseOut = function() {
+			dSelector.forEach(function(item, index){
+				changeText(item, "");
+			});
+		};
+
+		document.querySelectorAll("button").forEach(function(item, index){
+			item.addEventListener(eventName.click, function(){
+				dSelector.forEach(function(subItem, subIndex){
+					index == 0 ? changeText(subItem, names[subIndex]) 
+							   : changeTextHTML(subItem, setStrong(names[subIndex]));
+					setForeColor(subItem, getItemColor()[subIndex]);
+				});
+			});
+
+			item.addEventListener(eventName.mouseOut, function(){
+				doMouseOut();
+			});
+		});
+
+	</script>
+</body>
+</html>

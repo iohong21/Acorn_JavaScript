@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step18_example4.html</title>
+</head>
+<body>
+	<input type="text" id="inputMsg" />
+	<button id="saveBtn">저장</button>
+	<button id="listBtn">목록보기</button>
+	<ul id="msgList">
+		
+	</ul>
+	<script>
+		/*
+			저장 버튼을 누르면 입력한 문자열이 
+			localStorage에 배열형태의 json 문자열로 저장 되도록 해 보세요.
+
+			목록 보기 버튼을 누르면 배열에 저장된 json 
+			문자열을 읽어와서 실제 배열로 바꾼다음 배열에
+			저장된 내용을 ul 에 하나씩 출력해 보세요.
+		*/
+
+		if(localStorage.jsonList == undefined) {
+			localStorage.jsonList = "[]";
+		}
+
+		var pushData = function() {
+			var inputVal = document.querySelector("#inputMsg").value;
+			var oList = JSON.parse(localStorage.jsonList);
+			oList.push(inputVal);
+			localStorage.jsonList = JSON.stringify(oList);
+			document.querySelector("#inputMsg").value = "";
+			document.querySelector("#inputMsg").focus();
+		};
+
+		var appendList = function(argItem) {
+			var li = document.createElement("li");
+			var ul = document.querySelector("#msgList");
+			li.innerText = argItem;
+			ul.append(li);
+		};
+
+		document.querySelector("#saveBtn").addEventListener("click", function(){
+			pushData();
+		});
+		document.querySelector("#inputMsg").addEventListener("keyup", function(event){
+			if(event.keyCode == 13) {
+				pushData();
+			};
+		});
+
+		document.querySelector("#listBtn").addEventListener("click", function(){
+			if(localStorage.jsonList != undefined) {
+				var arrList = JSON.parse(localStorage.jsonList);
+				document.querySelector("#msgList").innerHTML = "";
+				arrList.forEach(function(item, index){
+					appendList(item);
+				});
+			}
+		});
+	</script>
+</body>
+</html>

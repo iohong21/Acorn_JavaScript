@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.numGroup {
+			width: 60px;
+			height: 60px;
+		}
+
+		#n8, #n20 {
+			margin-left: 68px;
+		}
+
+		#n13, #n17 {
+			margin-left: 136px;
+		}
+
+		#n16 {
+			margin-left: 204px;
+		}
+	</style>
+</head>
+<body>
+	<img onclick="clickNum(1);" id="n1" class="numGroup" src="images/lotto-ball-1.png" alt="">
+	<img onclick="clickNum(2);" id="n2" class="numGroup" src="images/lotto-ball-2.png" alt="">
+	<img onclick="clickNum(3);" id="n3" class="numGroup" src="images/lotto-ball-3.png" alt="">
+	<img onclick="clickNum(4);" id="n4" class="numGroup" src="images/lotto-ball-4.png" alt="">
+	<img onclick="clickNum(5);" id="n5" class="numGroup" src="images/lotto-ball-5.png" alt="">
+	<img onclick="clickNum(6);" id="n6" class="numGroup" src="images/lotto-ball-6.png" alt="">
+	<img onclick="clickNum(7);" id="n7" class="numGroup" src="images/lotto-ball-7.png" alt="">
+	<br/>
+	<img onclick="clickNum(8);" id="n8" class="numGroup" src="images/lotto-ball-8.png" alt="">
+	<img onclick="clickNum(9);" id="n9" class="numGroup" src="images/lotto-ball-9.png" alt="">
+	<img onclick="clickNum(10);" id="n10" class="numGroup" src="images/lotto-ball-10.png" alt="">
+	<img onclick="clickNum(11);" id="n11" class="numGroup" src="images/lotto-ball-11.png" alt="">
+	<img onclick="clickNum(12);" id="n12" class="numGroup" src="images/lotto-ball-12.png" alt="">
+	<br/>
+	<img onclick="clickNum(13);" id="n13" class="numGroup" src="images/lotto-ball-13.png" alt="">
+	<img onclick="clickNum(14);" id="n14" class="numGroup" src="images/lotto-ball-14.png" alt="">
+	<img onclick="clickNum(15);" id="n15" class="numGroup" src="images/lotto-ball-15.png" alt="">
+	<br/>
+	<img onclick="clickNum(16);" id="n16" class="numGroup" src="images/lotto-ball-16.png" alt="">
+	<br/>
+	<img onclick="clickNum(17);" id="n17" class="numGroup" src="images/lotto-ball-17.png" alt="">
+	<img onclick="clickNum(18);" id="n18" class="numGroup" src="images/lotto-ball-18.png" alt="">
+	<img onclick="clickNum(19);" id="n19" class="numGroup" src="images/lotto-ball-19.png" alt="">
+	<br/>
+	<img onclick="clickNum(20);" id="n20" class="numGroup" src="images/lotto-ball-20.png" alt="">
+	<img onclick="clickNum(21);" id="n21" class="numGroup" src="images/lotto-ball-21.png" alt="">
+	<img onclick="clickNum(22);" id="n22" class="numGroup" src="images/lotto-ball-22.png" alt="">
+	<img onclick="clickNum(23);" id="n23" class="numGroup" src="images/lotto-ball-23.png" alt="">
+	<img onclick="clickNum(24);" id="n24" class="numGroup" src="images/lotto-ball-24.png" alt="">
+	<br/>
+	<img onclick="clickNum(25);" id="n25" class="numGroup" src="images/lotto-ball-25.png" alt="">
+	<img onclick="clickNum(26);" id="n26" class="numGroup" src="images/lotto-ball-26.png" alt="">
+	<img onclick="clickNum(27);" id="n27" class="numGroup" src="images/lotto-ball-27.png" alt="">
+	<img onclick="clickNum(28);" id="n28" class="numGroup" src="images/lotto-ball-28.png" alt="">
+	<img onclick="clickNum(29);" id="n29" class="numGroup" src="images/lotto-ball-29.png" alt="">
+	<img onclick="clickNum(30);" id="n30" class="numGroup" src="images/lotto-ball-30.png" alt="">
+	<img onclick="clickNum(31);" id="n31" class="numGroup" src="images/lotto-ball-31.png" alt="">
+	<br/>
+	<div id="desc"></div>
+	<script>
+		var ball = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
+		var isClick = false;
+		var firstIndex;
+		var firstValue;
+		var descSelector = document.querySelector("#desc");
+
+		var clickNum = function(pIndex) {
+			if(!isClick) {
+				firstIndex = pIndex;
+				firstValue = ball[pIndex];
+				descSelector.innerText = firstValue + " 선택";
+			} else {
+				descSelector.innerText += " 후, " + ball[pIndex] + " 선택.  두 개의 값 교체";
+				changeBall(firstIndex, firstValue, pIndex, ball[pIndex]);
+				swap(firstIndex, pIndex);
+			};
+			isClick = !isClick;
+		};
+
+		var swap = function(num1, num2) {
+			var temp = ball[num1];
+			ball[num1] = ball[num2];
+			ball[num2] = temp;
+		};
+
+		var getSelector = function(pVal) {
+			return document.querySelector("#n" + pVal);
+		};
+
+		var drawBall = function(imageSelector, value) {
+			imageSelector.src = "images/lotto-ball-" + value + ".png";
+		};
+
+		var changeBall = function(index1, index1Value, index2, index2Value) {
+			drawBall(getSelector(index1), index2Value);
+			drawBall(getSelector(index2), index1Value);
+		};
+	</script>
+</body>
+</html>

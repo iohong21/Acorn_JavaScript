@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step08_function8.html</title>
+</head>
+<body>
+	<h3>함수 테스트</h3>
+	<div id="show"></div>
+	<button onclick="doRun();">Run</button>
+	<button onclick="doStop();">Stop</button>
+	<script>
+		document.querySelector("#show").innerText = "●";
+		// 1초 주기로 호출할 함수 전달하기
+		var tmrID;
+
+		var doRun = function() {
+			var s = "●";
+			var count = 0
+			var trg = 1;
+			var moveStep = 5;
+			var rw = document.querySelector("body").clientWidth;
+			rw = Math.floor(rw / moveStep) * moveStep - (moveStep * 2);
+			tmrID = setInterval(function(){
+						if(trg == 1) {
+							if(count > rw) {
+								trg = -1;
+							}
+						} else {
+							if(count < moveStep) {
+								trg = 1;
+							}
+						}
+						count = count + (moveStep * trg);
+						document.querySelector("#show").style.marginLeft = count + "px";
+					}, 50);	
+		}
+
+		var doStop = function() {
+			clearInterval(tmrID);
+		}
+	</script>
+</body>
+</html>

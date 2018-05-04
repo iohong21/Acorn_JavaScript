@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step11_example4.html</title>
+	<style>
+		/* 여기는 css 영역 입니다. */
+		#kim {
+			background-color: green;
+			margin-left: 100px;
+		}
+	</style>
+</head>
+<body>
+	<h3>if 문 테스트</h3>
+	<button onclick="clk();">눌러보셈</button><br/><br/>
+	<img style="background-color: green;" src="images/0.png" alt="김구라 이미지" id="idImg" />
+	<script>
+		var imgSelector = document.querySelector("#idImg");
+		var count = 0;
+		var clk = function() {
+			if(count == 9) {
+				count = 0;
+				imgSelector.src = "images/" + count + ".png";
+				return;
+			}
+			count = count + 1;
+			imgSelector.src = "images/" + count + ".png";
+		};
+
+		
+	</script>
+</body>
+</html>

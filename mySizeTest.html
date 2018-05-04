@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<img onclick="UpSize();" src="images/btn_icon_search02.gif" alt="">
+	<button id="btnDown" onclick="DownSize();">작게</button>
+	<br/>
+	<img src="images/kim1.png" alt="" id="kim">
+	<div id="desc"></div>
+	<script>
+		var iSelector = document.querySelector("#kim");
+		var dSelector = document.querySelector("#desc");
+
+		var UpSize = function() {
+			dSelector.innerText = event.button;			
+			iSelector.width = iSelector.width + 10;
+			iSelector.height = iSelector.height + 10;
+		}
+
+		var DownSize = function() {
+			iSelector.width = iSelector.width - 10;
+			iSelector.height = iSelector.height - 10;
+		}
+	</script>
+</body>
+</html>

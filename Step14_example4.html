@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step14_example4.html</title>
+</head>
+<body>
+	<button id="printBtn">숫자 출력</button>
+	<button id="printName">이름 출력</button>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<script>
+		var members = [ {num:1, name:"김구라"}, {num:2, name:"해골"} ];
+		members.push( {num:3, name:"원숭이"});
+		members.push( {num:4, name:"주뎅이"});
+		members.push( {num:5, name:"덩어리"});
+
+		/*
+		document.querySelector("#printBtn").addEventListener("click", function(){
+			document.querySelectorAll("div").forEach(function(item, index){
+				item.innerText = members[index].num;
+			});
+		});
+
+		document.querySelector("#printBtnName").addEventListener("click", function(){
+			document.querySelectorAll("div").forEach(function(item, index){
+				item.innerText = members[index].name;
+			});
+		});
+		*/
+
+		document.querySelectorAll("button").forEach(function(item, index){
+			item.addEventListener("click", function(){
+				document.querySelectorAll("div").forEach(function(subItem, subIndex){
+					subItem.innerText = index==0 ? members[subIndex].num : members[subIndex].name;
+				});
+			});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step16_example.html</title>
+	<style>
+		.box {
+			width: 100px;
+			height: 100px;
+			border: 1px solid red;
+		}
+	</style>
+</head>
+<body>
+	<div id="one" class="box">div1</div>
+	<div id="two" class="box">div2</div>
+	<div id="three" class="box">div3</div>
+	<script>
+		/*
+			div 3 개의 배경색을 하나씩 노란색으로 주기적으로 바꾸기
+		*/
+		var tick = 0;
+		var oBox = document.querySelectorAll(".box");
+
+		var changeColor = function(argIndex){
+			if(argIndex < 0 || argIndex > oBox.length-1) {
+				return;
+			};
+
+			for(var i=0; i<oBox.length; i++) {
+				oBox[i].style.backgroundColor = "white";
+			};
+			oBox[argIndex].style.backgroundColor = "yellow";
+		};
+
+		changeColor(tick);
+		setInterval(function(){
+			tick = (tick + 1) % oBox.length;
+			changeColor(tick);
+		}, 1000);
+	</script>
+</body>
+</html>

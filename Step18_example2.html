@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step18_example2.html</title>
+</head>
+<body>
+	<button id="printBtn">정보 출력하기</button>
+	<p>번호 : <strong id="num"></strong></p>
+	<p>이름 : <strong id="name"></strong></p>
+	<h3>취미</h3>
+	<ul id="hobbyList">
+		
+	</ul>
+	<script>
+		var info = `{
+			"num":1,
+			"name":"김구라",
+			"hobby":["piano","billiard","cooking"]
+		}`;
+
+		var getSelector = function(argSelector) {
+			document.querySelector(argSelector);
+		};
+
+		/*
+			정보 출력하기 버튼을 누르면 info 에 있는 
+			정보를 이용해서 strong 요소 ul 요소에 회원 
+			정보를 출력해 보세요
+		*/
+		getSelector("#printBtn").addEventListener("click", function(){
+			var jsonInfo = JSON.parse(info);
+			getSelector("#num").innerText = jsonInfo.num;
+			getSelector("#name").innerText = jsonInfo.name;
+			jsonInfo.hobby.forEach(function(hobyItem){
+				var oLI = document.createElement("li");
+				oLI.innerText = hobyItem;
+				getSelector("#hobbyList").append(oLI);
+			});
+		});
+
+	</script>
+</body>
+</html>

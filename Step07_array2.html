@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step07_array2.html</title>
+</head>
+<body>
+	<div>div1</div>
+	<div>div2</div>
+	<div id="monkey">div3</div>
+	<div>div4</div>
+	<div>div5</div>
+
+	<button onclick="changeRecover(true);" onmouseout="changeRecover(false);">change!</button>
+
+	<script>
+		var names = ["김구라", "해골", "원숭이", "주뎅이", "덩어리"];
+		var divs = ["div1", "div2", "div3", "div4", "div5"];
+		var nd;
+
+		var changeRecover = function(state) {
+			if(state) {
+				nd = names;
+			} else {
+				nd = divs;
+			}
+			document.querySelectorAll("div")[0].innerText = nd[0];
+			document.querySelectorAll("div")[1].innerText = nd[1];
+			document.querySelectorAll("div")[2].innerText = nd[2];
+			document.querySelectorAll("div")[3].innerText = nd[3];
+			document.querySelectorAll("div")[4].innerText = nd[4];
+		}
+	</script>
+</body>
+</html>

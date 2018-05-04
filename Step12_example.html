@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step12_example.html</title>
+</head>
+<body>
+	<h3>산술 연산자 테스트</h3>
+	<input type="text" id="one">
+	<button onclick="calc('+');" id="btn">+</button>
+	<button onclick="calc('-');" id="btn">-</button>
+	<button onclick="calc('*');" id="btn">*</button>
+	<button onclick="calc('/');" id="btn">/</button>
+	<button onclick="calc('%');" id="btn">%</button>
+	<input type="text" id="two">
+	<strong>=</strong>
+	<input type="text" id="result">
+	<script>
+		var oneSel = document.querySelector("#one");
+		var twoSel = document.querySelector("#two");
+		var btnSel = document.querySelector("#btn");
+		var rSel = document.querySelector("#result");
+
+		// 버튼을 눌렀을때 호출되는 함수
+		var calc = function(pOper) {
+			var num1 = parseFloat(oneSel.value);
+			var num2 = parseFloat(twoSel.value);
+
+			if(pOper == "+") {
+				rSel.value = num1 + num2;
+			} else if(pOper == "-") {
+				rSel.value = num1 - num2;
+			} else if(pOper == "*") {
+				rSel.value = num1 * num2;
+			} else if(pOper == "/") {
+				rSel.value = num1 / num2;
+			} else if(pOper == "%") {
+				rSel.value = num1 % num2;
+			};
+		};
+	</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step13_event6.html</title>
+	<style>
+		a {
+			text-decoration: none;
+		}
+		button {
+			margin-left: 50px;
+		}
+	</style>
+</head>
+<body>
+	<a href="http://naver.com">naver</a>
+	<button>버튼</button>
+	<br/>
+	<div></div>
+	<script>
+		/*
+			a 요소와 button 요소에 각각 
+			'focus' 이벤트와 'blur' 이벤트가 일어 났을때
+			실행할 함수를 등록하고 언제 focus 이벤트와 blur 이벤트가
+			일어나는지 조사 해보세요
+		*/
+		var raiseEvent = "";
+		var dSelector = document.querySelector("div");
+
+		document.querySelector("a").addEventListener("focus", function(){
+			// a element에 focus가 왔을때 focus 이벤트 발생
+			this.style.textDecoration = "underline";
+			raiseEvent += "[a 요소  'focus' event 발생.]  "
+			dSelector.innerText = raiseEvent;
+		});
+		document.querySelector("a").addEventListener("blur", function(){
+			// a element에서 focus가 사라졌을때 blur 이벤트 발생
+			this.style.textDecoration = "none";
+			raiseEvent += "[a 요소  'blur' event 발생.]  "
+			dSelector.innerText = raiseEvent;
+		});
+		document.querySelector("button").addEventListener("focus", function(){
+			// button element에 focus가 왔을때 focus 이벤트 발생
+			raiseEvent += "[button 요소  'focus' event 발생.]  "
+			dSelector.innerText = raiseEvent;
+		});
+		document.querySelector("button").addEventListener("blur", function(){
+			// button element에서 focus가 사라졌을때 blur 이벤트 발생
+			raiseEvent += "[button 요소  'blur' event 발생.]  "
+			dSelector.innerText = raiseEvent;
+		});
+
+	</script>
+</body>
+</html>

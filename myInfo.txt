@@ -1,0 +1,30 @@
+name:"중근",
+addr:"보문동",
+blood:"B"
+
+
+// JSON 형식
+{
+	"name":"중근",
+	"addr":"보문동",
+	"blood":"B"
+}
+
+
+// XML 형식
+<member>
+	<name>중근</name>
+	<addr>보문도</addr>
+	<blood>B</blood>
+</member>
+
+
+// JSON data type
+{
+	"key1":숫자 (예: 1),
+	"key2":문자 (예: "abc"),
+	"key3":Boolean (예: true, false),
+	"key4":{} (예: {"name":"중근"},
+	"key5":[],
+	"key6":null
+}

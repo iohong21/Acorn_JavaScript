@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step15_example2.html</title>
+</head>
+<body>
+	<h3>문서 객체 조작 테스트</h3>
+	<ul>
+		<li>하나<button class="delete-btn">x</button></li>
+		<li>두울<button class="delete-btn">x</button></li>
+		<li>세엣<button class="delete-btn">x</button></li>
+	</ul>
+	<script>
+		var buttons = document.querySelectorAll(".delete-btn");
+
+		for(var i=0; i<buttons.length; i++) {
+			buttons[i].addEventListener("click", function(){
+				if(confirm("삭제 하시겠습니까?")) {
+					this.parentElement.remove();
+				}
+			});
+		};
+
+		var li=document.createElement("li");
+		li.innerText = "네엣";
+		var button = document.createElement("button");
+		button.innerText = "x";
+		button.addEventListener("click", function(){
+			if(confirm("삭제 하시겠습니까?")) {
+				this.parentElement.remove();
+			}
+		});
+		li.append(button);
+		document.querySelector("ul").append(li);
+	</script>
+</body>
+</html>

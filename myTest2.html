@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+		<script>
+			var oHtml = document.querySelector("html");
+			oHtml.setAttribute("lang", "en");
+			var oHead = document.querySelector("head");
+			var oMeta = document.createElement("meta");
+			oMeta.setAttribute("charset", "UTF-8");
+			var oTitle = document.createElement("title");
+			oTitle.innerText = "test";
+			oHead.append(oMeta);
+			oHead.append(oTitle);
+		</script>	
+	</body>
+</html>

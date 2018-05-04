@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step11_example4.html</title>
+	<style>
+		/* 여기는 css 영역 입니다. */
+	</style>
+</head>
+<body>
+	<h3>if 문 테스트</h3>
+	<button onclick="toGreen()">녹색</button>
+	<button onclick="toYellow()">노란색</button>
+	<button onclick="toggle()">토글</button>
+	<button onclick="move()">움직이기</button>
+	<br/>
+	<img id="kim" src="images/kim1.png" alt="김구라 이미지" />
+	<div id="desc">marginLeft</div>
+	<script>
+		/*
+			1. 녹색 버튼을 눌렀을때 이미지의 배경색을 green 으로 바꿔 보세요
+
+			document.querySelector("#kim").style.backgroundColor = "green";
+		*/
+		var imgSelector = document.querySelector("#kim");
+		var descSelector = document.querySelector("#desc");
+		var bodySelector = document.querySelector("body");
+
+		var color = "green";
+
+		// margin-left 값을 숫자로 저장할 변수
+		var ml = 0;	// 초기 값 0 부여
+
+		var descML = (imgSelector.width / 2) + ml;
+
+		imgSelector.style.backgroundColor = color;
+
+		descSelector.style.marginLeft = descML + "px";
+		descSelector.innerText = ml + "px";
+
+		var toGreen = function() {
+			color = "green";
+			imgSelector.style.backgroundColor = color;
+		}
+		var toYellow = function() {
+			color = "yellow";
+			imgSelector.style.backgroundColor = color;
+		}
+
+		// 토글 버튼을 눌렀을때 호출되는 함수
+		var toggle = function() {
+			// 만일 현재 색상이  green 이면 yellow 로
+			if(color == "green") {
+				toYellow();
+			} else {
+				// 그렇지 않으면 green 으로
+				toGreen();
+			}
+		}
+
+		var move = function() {
+			// margin-left 10 증가 시키기
+			ml = ml + 10;
+
+			if(imgSelector.width + ml > bodySelector.clientWidth) {
+				ml = bodySelector.clientWidth - imgSelector.width;
+				//return;
+			}
+			
+			// img 요소의 style 에 적용 시키기
+			imgSelector.style.marginLeft = ml + "px";
+
+			descML = (imgSelector.width / 2) + ml - 20;
+			descSelector.style.marginLeft = descML + "px";
+			descSelector.innerText = descSelector.innerText = ml + "px";;
+		}
+	</script>
+</body>
+</html>

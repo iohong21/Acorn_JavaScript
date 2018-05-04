@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<button>Click</button>
+	<p id="p"></p>
+	<script>
+		var cnt = 0;
+		var showR = function() {
+			var ranNum = parseInt(Math.random()*11)-5;
+			var x = document.querySelector("#p");
+			x.innerHTML += ("&nbsp;" + ranNum + ",&nbsp;");
+			if(++cnt % 15 == 0) {
+				x.innerHTML += "<br/>";
+			};
+		};
+		document.querySelector("button").addEventListener("click", function(){
+			showR();
+		});
+	</script>
+</body>
+</html>

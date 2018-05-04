@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step18_example5.html</title>
+</head>
+<body>
+	<input type="text" id="inputNum" placeholder="번호입력" />
+	<input type="text" id="inputName" placeholder="이름입력" />
+	<input type="text" id="inputAddr" placeholder="주소입력" />
+	<button id="saveBtn">저장</button>
+	<button id="loadBtn">목록보기</button>
+	<button id="deleteBtn">전체삭제</button>
+	<ul id="memberList">
+	</ul>
+	<script>
+		var eventName = { click: "click" };
+		var message = { none: "", noData: "저장된 기록이 없습니다" };
+		
+		var getSelector = function(argSelector){
+			return document.querySelector(argSelector);
+		};
+
+		var clearInput = function() {
+			getSelector("#inputNum").value = "";
+			getSelector("#inputName").value = "";
+			getSelector("#inputAddr").value = "";
+		};
+
+		var makeButton = function(argIndex) {
+			var btn = document.createElement("button");
+			btn.innerText = "삭제";
+			btn.addEventListener("click", function(){
+				this.parentElement.remove();
+				var obj = JSON.parse(localStorage.member);
+				obj.splice(argIndex,1)
+				localStorage.member = JSON.stringify(obj);
+			});
+
+			return btn;
+		};
+
+		var NoData = function() {
+			var ul = getSelector("#memberList")
+			var li = document.createElement("li");
+			li.innerText = message.noData;
+			ul.append(li);
+		};
+
+		if(localStorage.member == undefined) {
+			localStorage.member = "[]";
+		}
+
+		getSelector("#saveBtn").addEventListener(eventName.click, function(){
+			var obj = JSON.parse(localStorage.member);
+			var mData = {};
+			mData.num = getSelector("#inputNum").value;
+			mData.name = getSelector("#inputName").value;
+			mData.addr = getSelector("#inputAddr").value;
+			obj.push(mData);
+			localStorage.member = JSON.stringify(obj);
+			clearInput();
+		});
+		
+		getSelector("#loadBtn").addEventListener(eventName.click, function(){
+			getSelector("#memberList").innerText = message.none;
+			if(localStorage.member == undefined) {
+				NoData();
+			} else {
+				var mList = JSON.parse(localStorage.member);
+				if(mList.length == 0) {
+					NoData();
+				} else {
+					mList.forEach(function(item, index){
+						var ul = getSelector("#memberList")
+						var li = document.createElement("li");
+
+						var dispMsg = `번호: ${item.num}&nbsp;&nbsp;&nbsp;`;
+						dispMsg += `이름: ${item.name}&nbsp;&nbsp;&nbsp;`;
+						dispMsg += `주소: ${item.addr}&nbsp;&nbsp;&nbsp;`;
+						li.innerHTML = dispMsg;
+						var btn = makeButton(index);
+						li.append(btn);
+						
+						ul.append(li);
+					});
+				};
+			};
+		});
+
+		getSelector("#deleteBtn").addEventListener(eventName.click, function(){
+			localStorage.member = "[]";
+			getSelector("#memberList").innerText = "";
+		});
+	</script>
+</body>
+</html>
+

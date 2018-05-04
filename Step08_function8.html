@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step08_function8.html</title>
+</head>
+<body>
+	<h3>함수 테스트</h3>
+	<div id="show"></div>
+	<button onclick="doRun();">Run</button>
+	<button onclick="doStop();">Stop</button>
+	<script>
+		// 1초 주기로 호출할 함수 전달하기
+		var tmrID;
+
+		var doRun = function() {
+			var count = 0
+			tmrID = setInterval(function(){
+						count = count + 1;
+						document.querySelector("#show").innerText = count;
+					}, 500);	
+		}
+
+		var doStop = function() {
+			clearInterval(tmrID);
+		}
+	</script>
+</body>
+</html>

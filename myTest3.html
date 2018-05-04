@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>My Test</title>
+</head>
+<body>
+	<img src="images/clock_point.png" alt="">
+	<script>
+		var ball = { X: 0,  Y: 0 };
+		var keyArrow = { Right: 37,  Left: 39,  Down: 40,  Up: 38 }
+
+		var stepX = 10;
+		var stepY = 5;
+
+		var getSelector = function(argTarget) {
+			return document.querySelector(argTarget);
+		};
+
+		var doRight = function(argSelector) {
+			ball.X -= stepX;
+			if(ball.X < 1) {
+				ball.X = 0;
+			}
+			argSelector.style.marginLeft = ball.X + "px";
+		};
+		var doLeft = function(argSelector) {
+			var maxRight = getSelector("body").clientWidth;
+			ball.X += stepY;
+			if(ball.X >= maxRight) {
+				ball.X = maxRight;
+			}
+			argSelector.style.marginLeft = ball.X + "px";
+		};
+		var doDown = function(argSelector) {
+			var maxHeight = getSelector("body").clientHeight;
+			ball.Y += stepY;
+			if(ball.Y > maxHeight) {
+				ball.Y = maxHeight;
+			};
+			argSelector.style.marginTop = ball.Y + "px";
+		};
+		var doUp = function(argSelector) {
+			ball.Y -= stepY;
+			if(ball.Y < 1) { 
+				ball.Y = 0;
+			}
+			argSelector.style.marginTop = ball.Y + "px";
+		};
+
+		document.querySelector("body").addEventListener("keyup", function(event){
+			// left : 39,   right : 37,   up : 38,   down : 40
+			if(event.keyCode == keyArrow.Right || event.keyCode == keyArrow.Left || 
+			   event.keyCode == keyArrow.Down || event.keyCode == keyArrow.Up) {
+				var oSelector = getSelector("img");
+				if(event.keyCode == keyArrow.Right) {
+					doRight(oSelector);
+				} else if(event.keyCode == keyArrow.Left) {
+					doLeft(oSelector);
+				} else if(event.keyCode == keyArrow.Down) {
+					doDown(oSelector);
+				} else if(event.keyCode == keyArrow.Up) {
+					doUp(oSelector);
+				}
+			};
+		});
+	</script>
+</body>
+</html>

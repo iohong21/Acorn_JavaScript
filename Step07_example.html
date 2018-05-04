@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step07_example.html</title>
+</head>
+<body>
+	<h3>array 테스트</h3>
+	<input type="text" id="inputMsg">
+	<button onclick="msgPush();">전송</button>
+	<p id="cont"></p>
+	<script>
+		var msgs = [];
+
+		// 전송 버튼을 눌렀을때 호출되는 함수
+		var msgPush = function() {
+			// 1. 입력한 문자열을 읽어온다
+			// 2. 배열에 저장한다.
+			var msg = document.querySelector("#inputMsg").value;
+			msgs[msgs.length] = msg;
+			//msgs.push(msg);
+
+			// 3. 결과 표시
+			//document.querySelector("#cont").innerText = msg;
+			document.querySelector("#cont").innerText = JSON.stringify(msgs);
+
+			// 4. input 요소에 입력한 내용 삭제
+			document.querySelector("#inputMsg").value = "";
+			document.querySelector("#inputMsg").focus();
+		};
+	</script>
+</body>
+</html>

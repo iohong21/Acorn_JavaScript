@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>myCalc2.html</title>
+	<style>
+		div {
+			margin-top: 2px;
+		}
+	</style>
+</head>
+<body>
+	<div id="d1"></div>
+	<br/>
+	<br/>
+	<br/>
+	<p id="desc"></p>
+	<p id="successOrFail"></p>
+	<input id="in" type="text">
+	<script>
+		var base = { timerID: -1,
+					 maxSize: 10, 
+					 initVal: -1, 
+					 level: 1, 
+					 fail: 0, 
+					 success: 0,
+					 point: 0,
+					 speed: 1000 };
+		var alpha = ["a", "b", "c", "d", "e", "f", "g", 
+					 "h", "i", "j", "k", "l", "m", "n",
+					 "o", "p", "q", "r", "s", "t", "u",
+					 "v", "w", "x", "y", "z"];
+		var target = "";
+		var moveX = 0;
+		var rNo = parseInt(Math.random()*10)+1;
+
+		var init = function() {
+			moveX = 0;
+			document.querySelector("#d1").style.marginLeft = moveX + "px";
+		};
+
+		var getWord = function(repeatNum) {
+			var word = "";
+			for(var i=0; i<repeatNum; i++) {
+				word += alpha[parseInt(Math.random()*26)];
+			}
+			return word;
+		}
+
+		var inputFocus = function() {
+			document.querySelector("#in").focus();
+		};
+
+		var incFail = function() {
+			base.fail++;
+		};
+
+		var incSuccess = function() {
+			base.success++;
+		};
+
+		var incPoint = function() {
+			base.point += 100;
+		};
+
+		var genWord = function() {
+			rSize = parseInt(Math.random()*((base.level-1)*2+4))+1;
+			if(rSize > 10) {
+				rSize = 10;
+			};
+			target = getWord(rSize);
+			document.querySelector("#d1").innerText = target;
+		};
+
+		var setLevel = function() {
+			base.level += base.point % 300 == 0 ? 1 : 0;
+		};
+
+		var setSpeed = function() {
+			base.speed = 1000 - ((base.level-1) * 100);
+		};
+
+		var doMove = function() {
+			base.timerID = setInterval(function(){
+				if(moveX > document.querySelector("body").clientWidth) {
+					incFail();
+					if(base.fail < 10) {
+						init();
+						return false;
+					}
+				} else {
+					moveX += 10;
+					document.querySelector("#d1").style.marginLeft = moveX + "px";
+				}
+				return true;
+			}, base.speed);
+		};
+
+		var displayInfo = function() {
+			var desc = `Label: ${base.level}&nbsp;&nbsp;&nbsp;점수: ${base.point}`;
+			document.querySelector("#desc").innerHTML = desc;
+
+			desc = `성공: ${base.success}&nbsp;&nbsp;&nbsp;실패: ${base.fail}`;
+			document.querySelector("#successOrFail").innerHTML = desc;
+		};
+
+		genWord();
+		doMove();
+		setSpeed();
+		displayInfo();
+
+		document.querySelector("#in").addEventListener("keyup", function(event){
+			if(event.keyCode == 13) {
+				var keyinValue = document.querySelector("#in").value;
+				if(keyinValue == target) {
+					clearInterval(base.timerID);
+					incSuccess();
+					incPoint();
+				} else {
+					incFail();
+				}
+				displayInfo();
+				init();
+				genWord();
+				document.querySelector("#d1").innerText = target;
+				setLevel();
+				setSpeed();
+				doMove();
+				document.querySelector("#in").value = "";
+			};
+		});
+		inputFocus();
+	</script>
+</body>
+</html>

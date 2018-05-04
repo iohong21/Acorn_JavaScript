@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step06_example.html</title>
+</head>
+<body>
+	<script>
+		// 친구의 이름, 전화번호, 성별, 주소를 plain object 를 만들어서 저장해 보세요.
+		/*
+		var friend = {};
+
+		friend.name = '호배';
+		friend.phone = '111-1111-1111';
+		friend.sex = 'male';
+		friend.addr = '서울';
+		*/
+
+		var index = Math.floor(Math.random() * 3);
+
+		var arrName = ['호배', '성진', '정식'];
+		var arrPhone = ['111-1111-1111', '222-2222-2222', '333-3333-3333'];
+		var arrSex = ['male', 'female', 'male'];
+		var arrAddr = ['서울', '부산', '인천'];
+
+		/*
+		var vName = '호배';
+		var vPhone = '111-1111-1111';
+		var vSex = 'male';
+		var vAddr = '서울';
+
+
+		var friend = {
+			name: vName,
+			phone: vPhone,
+			sex: vSex,
+			addr: vAddr
+		}
+		*/	
+		
+		var friend = {
+			name: arrName[index],
+			phone: arrPhone[index],
+			sex: arrSex[index],
+			addr: arrAddr[index]
+		}
+
+	</script>
+
+	<!--
+	<h2 id='pIndex'></h2>
+	<ul style="list-style-type:square">
+		<li id='pName'></li>
+		<li id='pPhone'></li>
+		<li id='pSex'></li>
+		<li id='pAddr'></li>
+	</ul>
+	-->
+	<h2 id='pIndex'></h2>
+	<div id='pName'></div>
+	<div id='pPhone'></div>
+	<div id='pSex'></div>
+	<div id='pAddr'></div>
+
+	<script>
+		document.getElementById("pIndex").innerHTML = 'Index: ' + index;
+		document.getElementById("pName").innerHTML = '이름: ' + friend.name;
+		document.getElementById("pPhone").innerHTML = '전화번호: ' + friend.phone;
+		document.getElementById("pSex").innerHTML = '성별: ' + friend.sex;
+		document.getElementById("pAddr").innerHTML = '주소: ' + friend.addr;
+	</script>
+</body>
+</html>

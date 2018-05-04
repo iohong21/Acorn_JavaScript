@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step16_attribute.html</title>
+</head>
+<body>
+	<h3>속성 조작 테스트</h3>
+	<button id="runBtn">달리기</button>
+	<button id="stopBtn">멈추기</button><br/>
+	<img id="one" src="images/run1.png" />
+	<script>
+		var oHead = document.querySelector("head");
+		var oStyle = document.createElement("style");
+		oStyle.innerHTML = "h3:hover { cursor: pointer; }";
+		oHead.append(oStyle);
+
+		var data = ["images/run1.png", "images/run2.png", "images/run3.png"];
+		var index = 0;
+		var mLeft = 0;
+		var mSize = 0;
+		var arrow = 1;
+		var trigger = true;
+		var runID = undefined;
+
+		var getSelector = function(argSelector) {
+			return document.querySelector(argSelector);
+		};
+
+		var getSelectorWidth = function(argSelector) {
+			return getSelector(argSelector).width;
+		};
+
+		var getSelectorClientWidth = function(argSelector) {
+			return getSelector(argSelector).clientWidth;
+		};
+
+		var changeSizeUp = function(argSelector) {
+			getSelector(argSelector).width = mSize;
+			getSelector(argSelector).height = mSize;
+		};
+
+		var doAction = function() {
+			//index++;
+			//if(index == 2) {
+			//	index = 0;
+			//}
+			index = ((index+1) % 3);
+
+			getSelector("#one").setAttribute("src", data[index]);
+
+			mLeft = mLeft + (10 * arrow);
+			mSize = mSize + (5 * arrow)
+			if(mLeft + getSelectorWidth("#one") > getSelectorClientWidth("body")) {
+				arrow *= -1;
+			}
+
+			if(mLeft < 1) {
+				arrow *= -1;
+			}
+			getSelector("#one").style.marginLeft = `${mLeft}px`;
+			changeSizeUp("#one");
+		};
+
+		getSelector("#runBtn").addEventListener("click", function(){
+			if(trigger) {
+				doAction();
+				runID = undefined;
+			} else {
+				runID = setInterval(function(){
+					doAction();
+				}, 100);
+			}
+		});
+
+		getSelector("#stopBtn").addEventListener("click", function(){
+			if(runID == undefined) return;
+			clearInterval(runID);
+		});
+
+		getSelector("h3").addEventListener("click", function(){
+			trigger = !trigger;
+			getSelector("#stopBtn").style.visibility = trigger ? "hidden" : "visible";
+		});
+
+
+		runID = setInterval(function(){
+			doAction();
+		}, 100);
+
+		//getSelector("#stopBtn").style.visibility="hidden";
+	</script>
+</body>
+</html>

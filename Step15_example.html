@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step15_example.html</title>
+</head>
+<body>
+	<input type="text" id="inputMsg"/>
+	<button id="addBtn">추가</button>
+	<ul id="msgList">
+		<li>하나</li>
+		<li>두울</li>
+		<li>세엣</li>
+	</ul>
+	<script>
+		var doAppend = function() {
+			var oInput = document.querySelector("#inputMsg");
+			var oLI = document.createElement("li");
+			oLI.innerText = oInput.value;
+			document.querySelector("#msgList").append(oLI);
+			oInput.value = "";
+			oInput.focus();
+		};
+
+		document.querySelector("#addBtn").addEventListener("click", function(){
+			doAppend();
+		});
+
+		document.querySelector("#inputMsg").addEventListener("keyup", function(event){
+			if(event.keyCode == 13) {
+				doAppend();
+			}
+		});
+
+		document.querySelector("#inputMsg").focus();
+	</script>
+</body>
+</html>

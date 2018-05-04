@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<img onclick="clickNum('1')" src="images/1.png" alt="">
+	<img onclick="clickNum('2')" src="images/2.png" alt="" style="margin-left: 20px">
+	<img onclick="clickNum('3')" src="images/3.png" alt="" style="margin-left: 20px">
+	<br/><br/>
+	<img onclick="clickNum('4')" src="images/4.png" alt="">
+	<img onclick="clickNum('5')" src="images/5.png" alt="" style="margin-left: 20px">
+	<img onclick="clickNum('6')" src="images/6.png" alt="" style="margin-left: 20px">
+	<br/><br/>
+	<img onclick="clickNum('7')" src="images/7.png" alt="">
+	<img onclick="clickNum('8')" src="images/8.png" alt="" style="margin-left: 20px">
+	<img onclick="clickNum('9')" src="images/9.png" alt="" style="margin-left: 20px">
+	<hr/>
+	<button onclick="asmdOper('+');">+</button>
+	<button onclick="asmdOper('-');" style="margin-left: 20px;">-</button>
+	<button onclick="asmdOper('*');" style="margin-left: 20px;">*</button>
+	<button onclick="asmdOper('/');" style="margin-left: 20px;">/</button>
+	<button onclick="clearValue();" style="margin-left: 20px;">Clear</button>
+	<button onclick="calc();" style="margin-left: 20px;">=</button>
+	<hr/>
+
+	<div id="display">0</div>
+	<div id="divUnder"></div>
+
+	<div id="result"></div>
+	<script>
+		var bag = [];
+		var dSelector = document.querySelector("#display");
+		var underSelector = document.querySelector("#divUnder");
+		var resultSelector = document.querySelector("#result");
+		var dispVal = "";
+		var currVal = "";
+		var resultVal = 0;
+
+		var clearValue = function() {
+			dispVal = "";
+			currVal = "";
+
+			dSelector.innerText = "0";
+			underSelector.innerText = "";
+			resultSelector.innerText = "";
+		};
+
+		var clickNum = function(pVal) {
+			dispVal += pVal;
+			currVal += pVal;
+			dSelector.innerText = dispVal;
+		};
+
+		var asmdOper = function(pOper) {
+			bag.push(currVal);
+			bag.push(pOper);
+			dispVal += pOper;
+			dSelector.innerText = dispVal;
+			currVal = "";
+		};
+
+		var calc = function() {
+			bag.push(currVal);
+			bag.reverse();
+
+			if(bag.length < 3) return;
+
+			resultVal = 0;
+			var num = 0;
+			var popVal;
+
+			while(bag.length != 0) {
+				popVal = bag.pop();
+				if(popVal == "+") {
+					if(isRemainData()) {
+						num = parseFloat(bag.pop());
+						resultVal += num;
+						pushData();
+					} else {
+						return;
+					};
+				} else if(popVal == "-") {
+					if(isRemainData()) {
+						num = parseFloat(bag.pop());
+						resultVal -= num;
+						pushData();
+					} else {
+						return;
+					};
+				} else if(popVal == "*") {
+					if(isRemainData()) {
+						num = parseFloat(bag.pop());
+						resultVal *= num;
+						pushData();
+					} else {
+						return;
+					};
+				} else if(popVal == "/") {
+					if(isRemainData()) {
+						num = parseFloat(bag.pop());
+						resultVal /= num;
+						pushData();
+					} else {
+						return;
+					};
+				} else if(popVal == "%") {
+					if(isRemainData()) {
+						num = parseFloat(bag.pop());
+						resultVal %= num;
+						pushData();
+					} else {
+						return;
+					};
+				} else {
+					resultVal = parseFloat(popVal);
+				};
+			};
+
+			underSelector.innerText = "========";
+			resultSelector.innerText = resultVal;
+		};
+
+		var isRemainData = function() {
+			return bag.length > 0;
+		};
+
+		var pushData = function() {
+			if(isRemainData()) {
+				bag.push(resultVal);
+				resultVal = 0;
+			}
+		};
+	</script>
+</body>
+</html>

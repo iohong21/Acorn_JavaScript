@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test5</title>
+	<style>
+		.gameObject {
+			border: 1px solid blue;
+			width: 50px;
+			height: 50px;
+			margin-left: 100px;
+			text-align: center;
+			cursor: pointer;
+		}
+
+		#msg {
+			margin-left: 80px;
+		}
+	</style>
+</head>
+<body>
+	<div class="gameObject">O</div>
+	<div class="gameObject">O</div>
+	<div class="gameObject">O</div>
+	<div class="gameObject">O</div>
+	<div class="gameObject"> </div>
+	<div class="gameObject">X</div>
+	<div class="gameObject">X</div>
+	<div class="gameObject">X</div>
+	<div class="gameObject">X</div>
+	<p id="move">이동횟수:0</p>
+	<p id="msg"></p><br/>
+	<div id="retry"></div>
+	<script>
+		var selector = {};
+		var oBlock = [1,1,1,1,0,2,2,2,2];
+		var oCollect = [2,2,2,2,0,1,1,1,1];
+
+		var msgKind = {clear:"", error:"선택오류", success:"성공했습니다"};
+		var selectColor = {white:"white", black:"black", blue:"blue", none:""}
+		var moveItem = {one:"O", two:"X", none:" "}
+
+		var oDiv = document.querySelectorAll(".gameObject");
+		var isClick = false;
+		var moveCount = 0;
+
+		var Init = function() {
+			moveCount = 0;
+			isClick = false;
+			oBlock = [1,1,1,1,0,2,2,2,2];
+			oCollect = [2,2,2,2,0,1,1,1,1];
+			selector = {};
+
+			getSelector("#move").innerText = `이동횟수:${moveCount}`;
+		};
+
+		var reDraw = function() {
+			oDiv.forEach(function(item, index){
+				item.innerText = index < 4 ? moveItem.one : index > 4 ? moveItem.two : moveItem.none;
+			});
+		};
+
+		/*
+			선택자 선택
+		*/
+		var getSelector = function(argSelector) {
+			return document.querySelector(argSelector);
+		};
+
+		/*
+			Message 표시
+		*/
+		var selectMessage = function(argMsg) {
+			getSelector("#msg").innerText = argMsg;
+		};
+		
+		/*
+			성공했는지 확인
+		*/
+		var isSuccess = function() {
+			var isCollect = true;
+			for(var i=0; i<oBlock.length; i++) {
+				if(isCollect) {
+					isCollect = oBlock[i] == oCollect[i];
+				}
+			}
+			return isCollect;
+		};
+		
+		/*
+			현재 선택된것을 저장
+		*/
+		var saveCurrentSelector = function(argItem, argIndex) {
+			selector.object = argItem;
+			selector.postion = argIndex;
+			selector.kind = oBlock[argIndex];
+		};
+
+		/*
+			이전에 선택한것 복구
+		*/
+		var recoverOldSelector = function() {
+			selector.object.style.backgroundColor = selectColor.white;
+			selector.object.style.color = selectColor.black;
+			selector.object.innerText = selectColor.none;
+		};
+
+		/*
+			선택된것 처리
+		*/
+		var doSelectAction = function(argItem) {
+			argItem.style.backgroundColor = selectColor.blue;
+			argItem.style.color = selectColor.white;
+		};
+
+		/*
+			내부 block에서도 바꾸어 줌
+		*/
+		var changeBlock = function(argIndex) {
+			oBlock[argIndex] = selector.kind;
+			oBlock[selector.postion] = 0;
+		};
+
+		/*
+			현재 선택한것을 다시 선택시 선택 취소
+		*/
+		var cancelSelect = function(argItem) {
+			argItem.style.backgroundColor = selectColor.white;
+			argItem.style.color = selectColor.black;
+		};
+
+		/*
+			게임을 다시 할것인가 묻는 버튼 생성
+		*/
+		var makeElement = function(argElement) {
+			var oContainer = getSelector("#retry");
+			var oButton = document.createElement(argElement);
+			oButton.setAttribute("id", "again");
+			oButton.innerText = "다시 도전";
+			oButton.addEventListener("click", function(){
+				Init();
+				reDraw();
+				oButton.parentElement.remove();
+				var oBody = getSelector("body");
+				var retryDiv = document.createElement("div");
+				retryDiv.setAttribute("id", "retry")
+				oBody.append(retryDiv);
+			});
+			oContainer.append(oButton);
+		};
+
+		var doSelectEmpty = function(argItem, argIndex) {
+			// 처음 선택하였는가?
+			if(!isClick) {
+				selectMessage(msgKind.error);
+			} else {
+				// 규칙에 어긋나는가?
+				if(Math.abs(selector.postion-argIndex) > 2) {
+					selectMessage(msgKind.error);
+					return;
+				}
+
+				// 이전에 선택한게 있고
+				// 현재 빈곳을 선택하였고
+				// 규칙에 맞다면
+				moveCount++;
+				recoverOldSelector();								
+				argItem.innerText = selector.kind == 1 ? moveItem.one : moveItem.two;
+
+				changeBlock(argIndex);
+
+				isClick = false;
+
+				getSelector("#move").innerText = `이동횟수:${moveCount}`;
+
+				if(isSuccess()) {
+					selectMessage(msgKind.success);
+					makeElement("button");
+				};
+			}
+		};
+
+		var doSelectItem = function(argItem, argIndex){
+			// 값이 존재하는곳 선택
+			// 두번쨰 선택하였는가?
+			if(isClick) {
+				// 이미 선택한곳을 다시 선택하였는가?
+				if(selector.postion == argIndex) {
+					cancelSelect(argItem);
+					isClick = false;
+				} else {
+					selectMessage(msgKind.error);
+				}
+			} else {
+				saveCurrentSelector(argItem, argIndex);
+				doSelectAction(argItem);
+				isClick = true;
+			}
+		};
+
+		oDiv.forEach(function(item, index){
+			item.addEventListener("click", function(){
+				selectMessage(msgKind.clear);
+
+				// 비어 있는곳을 선택 하였는가?
+				oBlock[index] == 0 ? doSelectEmpty(item, index) : doSelectItem(item, index);
+			});
+		});
+	</script>
+</body>
+</html>

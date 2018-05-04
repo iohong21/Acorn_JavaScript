@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test4</title>
+</head>
+<body>
+	<script>
+		var oBody = document.querySelector("body");
+		for(var i=0; i<7; i++) {
+			for(var j=0; j<7; j++) {
+				var oButton = document.createElement("button");
+				oButton.innerText = "X";
+				oBody.append(oButton);
+			};
+			oBody.append(document.createElement("br"));
+		}
+	</script>
+</body>
+</html>

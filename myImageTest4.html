@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div style="position: absolute;">
+		<div style="position: relative;">
+			<img src="images/background.jpg" alt="">
+		</div>
+	</div>
+
+	<div style="position: absolute;">
+		<div id="ballBack" style="position: relative; top: 10px; margin-left: 350px;">
+			<img id="ball" src="images/lotto-ball-2.png" alt="" style="width: 20px; height: 20px">
+		</div>
+	</div>
+
+	<div style="position: absolute;">
+		<button onclick="fire();">Click Me</button>
+	</div>
+	<script>
+		var bTop = 10;
+		var bLeft = 350;
+		var ballSize = 20;
+		var getSelector = function(pID){
+			return document.querySelector(pID);
+		};
+
+		var fire = function() {
+			var divSelector = getSelector("#ballBack");
+			bTop += 20;
+			bLeft -= 20;
+			divSelector.style.top = bTop + "px";
+			divSelector.style.marginLeft = bLeft + "px";
+
+			var imgSelector = getSelector("#ball");
+			ballSize += 10;
+			imgSelector.style.width = ballSize + "px";
+			imgSelector.style.height = ballSize + "px";
+		}
+	</script>
+</body>
+</html>

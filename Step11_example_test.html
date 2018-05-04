@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Step11_example.html</title>
+</head>
+<body>
+	<h3>if 문 테스트</h3>
+	<div id="one"></div>
+	<script>
+		// 입력한 문자열을 읽어와서
+		var divValue = [ { divColor: "blue", divText: "짝수" }, 
+						 { divColor: "green", divText: "홀수" } ];
+		var divSelector = document.querySelector("#one");
+		var result = prompt("임의의 정수를 입력하세요.");
+		console.log(result);
+
+		// 숫자(정수)로 바꿔준다
+		var num = parseInt(result);
+
+		if(isNaN(num) == false) {
+			var na = num % 2;
+			divSelector.style.color = divValue[na].divColor;
+			divSelector.innerText = `입력한 정수는 ${divValue[na].divText} 입니다.`;
+		} else {
+			divSelector.style.color = "red";
+			divSelector.innerText = "정수만 입력하세요";
+		}
+
+	</script>
+</h3>
+</body>
+</html>
